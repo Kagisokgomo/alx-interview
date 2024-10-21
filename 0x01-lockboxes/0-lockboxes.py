@@ -1,27 +1,21 @@
 #!/usr/bin/python3
 
 def canUnlockAll(boxes):
-    n = len(boxes)
-    unlocked = [False] * n
-    unlocked[0] = True  # The first box is unlocked by default
-    stack = [0]  # Start with the first box
+    # Set to keep track of unlocked boxes
+    unlocked = set()
+    unlocked.add(0)  # The first box is unlocked by default
+    
+    # Use a list as a stack to process boxes
+    stack = [0]
     
     while stack:
-        box = stack.pop()
-        for key in boxes[box]:
-            if key < n and not unlocked[key]:
-                unlocked[key] = True
+        current_box = stack.pop()
+        
+        # Try to unlock other boxes using keys from the current box
+        for key in boxes[current_box]:
+            if key not in unlocked and key < len(boxes):
+                unlocked.add(key)
                 stack.append(key)
     
-    return all(unlocked)
-
-# Testing the function
-if __name__ == "__main__":
-    boxes = [[1], [2], [3], [4], []]
-    print(canUnlockAll(boxes))  # True
-
-    boxes = [[1, 4, 6], [2], [0, 4, 1], [5, 6, 2], [3], [4, 1], [6]]
-    print(canUnlockAll(boxes))  # True
-
-    boxes = [[1, 4], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]]
-    print(canUnlockAll(boxes))  # False
+    # If all boxes are unlocked, return True
+    return len(unlocked) == len(boxes)
