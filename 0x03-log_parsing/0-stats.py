@@ -49,3 +49,54 @@ def log_parsing():
 
 if __name__ == "__main__":
     log_parsing()
+
+
+# Initialize metrics
+total_file_size = 0
+status_codes = {
+    '200': 0,
+    '301': 0,
+    '400': 0,
+    '401': 0,
+    '403': 0,
+    '404': 0,
+    '405': 0,
+    '500': 0,
+}
+
+# Define regex pattern to match log lines
+log_pattern = re.compile(
+    r'^(?P<ip>(\d{1,3}\.){3}\d{1,3}) - \[(?P<date>.+?)\] "GET /projects/260 HTTP/1.1" '
+    r'(?P<status_code>\d{3}) (?P<file_size>\d+)$'
+)
+
+def print_metrics():
+    """Print the metrics collected so far."""
+    print(f"File size: {total_file_size}")
+    for code in sorted(status_codes):
+        if status_codes[code] > 0:
+            print(f"{code}: {status_codes[code]}")
+
+if __name__ == "__main__":
+    try:
+        line_count = 0
+        for line in sys.stdin:
+            line = line.strip()
+            match = log_pattern.match(line)
+            if match:
+                status_code = match.group('status_code')
+                file_size = int(match.group('file_size'))
+                
+                # Update metrics
+                total_file_size += file_size
+                if status_code in status_codes:
+                    status_codes[status_code] += 1
+
+                line_count += 1
+
+                # Print metrics every 10 lines
+                if line_count % 10 == 0:
+                    print_metrics()
+
+    except KeyboardInterrupt:
+        print_metrics()
