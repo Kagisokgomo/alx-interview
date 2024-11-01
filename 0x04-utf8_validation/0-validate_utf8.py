@@ -64,3 +64,31 @@ def validUTF8(data):
             num_bytes -= 1
 
     return num_bytes == 0  # Check if all bytes were used correctly
+
+#!/usr/bin/python3
+def validUTF8(data):
+    num_bytes = 0  # Number of bytes to expect in a valid character
+
+    for num in data:
+        # Check the first byte and determine how many bytes are in this character
+        if num_bytes == 0:
+            if (num >> 7) == 0b0:  # 1-byte character
+                continue
+            elif (num >> 5) == 0b110:  # 2-byte character
+                num_bytes = 1
+            elif (num >> 4) == 0b1110:  # 3-byte character
+                num_bytes = 2
+            elif (num >> 3) == 0b11110:  # 4-byte character
+                num_bytes = 3
+            else:
+                return False  # Invalid UTF-8 start byte
+
+        else:
+            # Expect continuation byte
+            if (num >> 6) != 0b10:
+                return False
+
+        num_bytes -= 1  # Decrease the expected byte count
+
+    return num_bytes == 0  # Ensure all bytes were accounted for
+
