@@ -26,12 +26,6 @@ def validUTF8(data):
 
     return num_bytes == 0  # If we expect no more bytes, it's valid
 
-
-#!/usr/bin/python3
-""" Validate UTF-8 encoding
-"""
-
-def validUTF8(data):
     """ Determine if a given data set represents a valid UTF-8 encoding.
 
     Args:
@@ -65,8 +59,6 @@ def validUTF8(data):
 
     return num_bytes == 0  # Check if all bytes were used correctly
 
-#!/usr/bin/python3
-def validUTF8(data):
     num_bytes = 0  # Number of bytes to expect in a valid character
 
     for num in data:
@@ -91,4 +83,3 @@ def validUTF8(data):
         num_bytes -= 1  # Decrease the expected byte count
 
     return num_bytes == 0  # Ensure all bytes were accounted for
-
