@@ -14,7 +14,7 @@ def minOperations(n):
         n (int): Target number of H's.
 
     Returns:
-        int: Minimum number of operations, or 0 if n <= 1.
+        int: Minimum number of operations. Returns 0 if n <= 1.
     """
     if n <= 1:
         return 0
@@ -27,4 +27,5 @@ def minOperations(n):
             operations += divisor
             n //= divisor
         divisor += 1
-return operations
+
+    return operations
