@@ -4,7 +4,7 @@
 Calculate the minimum number of operations to get n H's
 """
 
-def minOperations(n):
+def minoperations(n):
     """
     Returns the minimum number of operations to get n H's
     using only Copy All and Paste.
