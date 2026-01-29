@@ -3,10 +3,10 @@
 Main file for testing
 """
 
-minoperations = __import__('0-minoperations').minoperations
+minOperations = __import__('0-minoperations').minOperations
 
 n = 4
-print("Min # of operations to reach {} char: {}".format(n, minoperations(n)))
+print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
 
 n = 12
-print("Min # of operations to reach {} char: {}".format(n, minoperations(n)))
+print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
